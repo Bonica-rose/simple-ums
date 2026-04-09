@@ -1,0 +1,34 @@
+[
+    {
+        "id": 1,
+        "name": "Sonia Rachel Sunny",
+        "email": "soniarachel@gmail.com",
+        "password": "Admin@123",
+        "status": "active",
+        "action": "created"
+    },
+    {
+        "id": 2,
+        "name": "Jeffy John",
+        "email": "jeffyjohn@gmail.com",
+        "password": "Jjeffy@123",
+        "status": "active",
+        "action": "deleted"
+    },
+    {
+        "id": 3,
+        "name": "Amy Thomas P",
+        "email": "amythomas@gmail.com",
+        "password": "Tamy@123",
+        "status": "active",
+        "action": "updated"
+    },
+    {
+        "id": 4,
+        "name": "Arun Varghese",
+        "email": "arunvarghese@gmail.com",
+        "password": "Varun@123",
+        "status": "active",
+        "action": "created"
+    }
+]

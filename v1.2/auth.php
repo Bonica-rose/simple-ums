@@ -5,4 +5,9 @@ if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
 }
+
+// Must be on the top of file
+// Prevents accessing dashboard after logout using browser back button
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Pragma: no-cache");
 ?>

@@ -1,15 +1,12 @@
 <?php
 session_start();
-// Prevents accessing dashboard after logout using browser back button
-header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
-header("Pragma: no-cache");
 
 include 'auth.php';
 include 'db.php';
 
 // If DB failed -> redirect with error
 if ($db_error) {
-    header("Location: login.php?error=" . urlencode($db_error));
+    header("Location: dashboard.php?error=" . urlencode($db_error));
     exit();
 }
 
@@ -69,6 +66,13 @@ $normalUsers = pg_fetch_result(pg_query($conn, "SELECT COUNT(*) FROM ums.users W
             </div>
         </div>
 
+        <!-- Error Message -->
+        <?php if (isset($_GET['error'])) { ?>
+            <div class="bg-red-100 text-red-700 p-3 rounded-lg mb-4">
+                <?= htmlspecialchars($_GET['error']) ?>
+            </div>
+        <?php } ?>
+
         <!-- Cards -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
@@ -115,6 +119,13 @@ $normalUsers = pg_fetch_result(pg_query($conn, "SELECT COUNT(*) FROM ums.users W
     </main>
 
 </div>
+
+<script>
+setTimeout(() => {
+    const errorAlert = document.querySelector('.bg-red-100');
+    if (errorAlert) errorAlert.style.display = 'none';
+}, 3000);
+</script>
 
 </body>
 </html>

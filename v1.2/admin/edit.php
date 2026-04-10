@@ -21,14 +21,7 @@ $user = pg_fetch_assoc($result);
 
 <body class="bg-gray-100 flex items-center justify-center h-screen">
 
-<div class="bg-white p-8 rounded-xl shadow-lg w-96">
-
-    <!-- Error Message -->
-    <?php if (isset($_GET['error'])) { ?>
-        <div class="bg-red-100 text-red-700 p-3 rounded-lg mb-4">
-            <?= htmlspecialchars($_GET['error']) ?>
-        </div>
-    <?php } ?>
+<div class="bg-white p-8 rounded-xl shadow-lg w-96">    
     
     <div class="flex justify-between items-center mb-6">
         <h2 class="text-xl font-bold mb-4">Edit User</h2>
@@ -39,19 +32,42 @@ $user = pg_fetch_assoc($result);
         </a>
     </div>
 
+    <!-- Error Message -->
+    <?php if (isset($_GET['error'])) { ?>
+        <div class="bg-red-100 text-red-700 p-3 rounded-lg mb-4">
+            <?= htmlspecialchars($_GET['error']) ?>
+        </div>
+    <?php } ?>
+
+    <?php
+        session_start();
+        if (isset($_SESSION['errors'])) {
+            echo '<div class="bg-red-100 text-red-700 p-3 rounded mb-4">';
+            foreach ($_SESSION['errors'] as $error) {
+                echo "<p>$error</p>";
+            }
+            echo '</div>';
+            unset($_SESSION['errors']);
+        }
+    ?>
+
     <form method="POST" action="update.php" class="space-y-4">
         <input type="hidden" name="id" value="<?= $user['id'] ?>">
 
         <input type="text" name="name" value="<?= $user['name'] ?>" 
+            required minlength="3"
             class="w-full border p-2 rounded" placeholder="Name">
 
         <input type="email" name="email" value="<?= $user['email'] ?>" 
+            required
             class="w-full border p-2 rounded" placeholder="Email">
 
-        <select name="role" class="w-full border p-2 rounded">
-            <option value="user" <?= $user['role']=='user'?'selected':'' ?>>User</option>
-            <option value="admin" <?= $user['role']=='admin'?'selected':'' ?>>Admin</option>
-        </select>
+        <?php if ($user['id'] != $_SESSION['user_id']) { ?>    
+            <select name="status" class="w-full border p-2 rounded">
+                <option value="active" <?= $user['status']=='active'?'selected':'' ?>>Active</option>
+                <option value="inactive" <?= $user['status']=='inactive'?'selected':'' ?>>Inactive</option>
+            </select>
+        <?php } ?>
 
         <button class="w-full bg-blue-500 hover:bg-blue-600 text-white p-2 rounded">
             Update
@@ -60,12 +76,12 @@ $user = pg_fetch_assoc($result);
 
 </div>
 
-    <script>
-    setTimeout(() => {
-        const errorAlert = document.querySelector('.bg-red-100');
-        if (errorAlert) errorAlert.style.display = 'none';
-    }, 3000);
-    </script>
+<script>
+setTimeout(() => {
+    const errorAlert = document.querySelector('.bg-red-100');
+    if (errorAlert) errorAlert.style.display = 'none';
+}, 3000);
+</script>
 
 </body>
 </html>

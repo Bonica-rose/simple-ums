@@ -14,3 +14,7 @@ CREATE TABLE ums.users (
     role VARCHAR(20) DEFAULT 'user',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+-- Modify Table
+ALTER TABLE ums.users ADD COLUMN status VARCHAR(10) DEFAULT 'active';
+ALTER TABLE ums.users ADD COLUMN actions VARCHAR(10) DEFAULT 'created';

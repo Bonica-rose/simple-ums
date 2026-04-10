@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }    
 
-    $query = "SELECT * FROM ums.users WHERE email = $1";
+    $query = "SELECT * FROM ums.users WHERE status = 'active' AND email = $1";
     $result = pg_query_params($conn, $query, array($email));
 
     if (!$result) {

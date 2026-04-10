@@ -48,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     } else {
         // Send error message
-        header("Location: login.php?error=" . urlencode("Invalid email or password"));
+        header("Location: login.php?error=" . urlencode("Invalid email or password or inactive user"));
         exit();
     }
 }
